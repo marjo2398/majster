@@ -1,10 +1,10 @@
 :root {
     --bg-color: #000000;
-    --text-color: #00FF00;
-    --border-color: #00FF00;
+    --text-color: #FFFFFF;
+    --border-color: #FFFFFF;
     --error-color: #FF0000;
-    --success-color: #00FF00;
-    --dim-color: #004400;
+    --success-color: #FFFFFF;
+    --dim-color: #333333;
 }
 
 * {
@@ -108,7 +108,7 @@ input {
 
 input:focus {
     border-color: var(--border-color);
-    background-color: rgba(0, 255, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 table {
@@ -125,7 +125,7 @@ th, td {
 
 th {
     border-bottom: 2px solid var(--border-color);
-    background-color: rgba(0, 255, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .total-summary {
@@ -150,7 +150,7 @@ th {
     padding: 10px;
     margin: 10px 0;
     font-weight: bold;
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Modal */

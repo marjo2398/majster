@@ -141,6 +141,25 @@ switch ($action) {
         echo json_encode(['success' => true]);
         break;
 
+    case 'delete_log':
+        $token = $data['token'] ?? '';
+        if (!verifyAuth($db, $token)) {
+            echo json_encode(['success' => false, 'message' => 'Brak uprawnień.']);
+            exit;
+        }
+
+        $id = $data['id'] ?? null;
+        if (!$id) {
+            echo json_encode(['success' => false, 'message' => 'Brak identyfikatora logu.']);
+            exit;
+        }
+
+        $stmt = $db->prepare("DELETE FROM telemetry_logs WHERE id = ?");
+        $stmt->execute([$id]);
+
+        echo json_encode(['success' => true]);
+        break;
+
     default:
         echo json_encode(['success' => false, 'message' => 'Nieznana komenda.']);
         break;

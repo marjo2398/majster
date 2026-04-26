@@ -104,8 +104,25 @@ async function loadData() {
                 <td>${parseFloat(log.hours).toFixed(2)}</td>
                 <td>${log.locked_rate}</td>
                 <td>${result}</td>
+                <td><button class="btn-delete" data-id="${log.id}">[KASUJ]</button></td>
             `;
             tbody.appendChild(tr);
+        });
+
+        // Add event listeners for delete buttons
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const id = e.target.getAttribute('data-id');
+                if (confirm('POTWIERDŹ USUNIĘCIE: Czy na pewno chcesz skasować ten zapis telemetryczny?')) {
+                    const deleteRes = await apiCall('delete_log', { id: id });
+                    if (deleteRes.success) {
+                        showMessage('ZAPIS SKASOWANY.');
+                        loadData();
+                    } else {
+                        showMessage(deleteRes.message || 'BŁĄD KASOWANIA', true);
+                    }
+                }
+            });
         });
         document.getElementById('total-archive-value').textContent = totalVal.toFixed(2);
 
