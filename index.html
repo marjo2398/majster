@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacja Kontroli Telemetrii</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <header>
+            <h1>[SYS] STACJA KONTROLI TELEMETRII v1.0.4</h1>
+            <div id="status-bar">
+                <span>STATUS UPLINKU: <span id="uplink-status">GOŚĆ</span></span>
+                <button id="btn-login-modal">[AUTORYZACJA UPLINKU]</button>
+                <button id="btn-logout" style="display: none;">[ZAMKNIJ UPLINK]</button>
+            </div>
+            <div id="error-message" class="error" style="display: none;"></div>
+            <div id="success-message" class="success" style="display: none;"></div>
+        </header>
+
+        <main>
+            <!-- Panel Administratora (ukryty domyślnie) -->
+            <section id="admin-panel" style="display: none;" class="panel">
+                <h2>> TRYB DOWODZENIA (CMD_MODE)</h2>
+
+                <div class="grid-layout">
+                    <!-- Formularz wprowadzania danych -->
+                    <div class="box">
+                        <h3>>> Wprowadzanie Danych</h3>
+                        <form id="telemetry-form">
+                            <div class="input-group">
+                                <label for="location">SEKTOR (Lokalizacja):</label>
+                                <input type="text" id="location" required autocomplete="off">
+                            </div>
+                            <div class="input-group">
+                                <label for="date">CYKL GŁÓWNY (Data):</label>
+                                <input type="date" id="date" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="start_time">CZAS WEJŚCIA (Od):</label>
+                                <input type="time" id="start_time" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="end_time">CZAS WYJŚCIA (Do):</label>
+                                <input type="time" id="end_time" required>
+                            </div>
+                            <button type="submit" id="btn-submit-telemetry">[ZATWIERDŹ ORBITĘ PARKINGOWĄ]</button>
+                        </form>
+                    </div>
+
+                    <!-- Ustawienia Systemowe -->
+                    <div class="box">
+                        <h3>>> Parametry Systemu</h3>
+                        <form id="rate-form">
+                            <div class="input-group">
+                                <label for="rate-multiplier">WSPÓŁCZYNNIK ENERGETYCZNY (Mnożnik):</label>
+                                <input type="number" id="rate-multiplier" step="0.01" required>
+                            </div>
+                            <button type="submit">[KALIBRUJ WSPÓŁCZYNNIK]</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Archiwum -->
+                <div class="box archive-box">
+                    <h3>>> Pełne Archiwum Telemetryczne</h3>
+                    <table id="admin-table">
+                        <thead>
+                            <tr>
+                                <th>CYKL GŁÓWNY</th>
+                                <th>SEKTOR</th>
+                                <th>CZAS (H)</th>
+                                <th>WSP. ZABL.</th>
+                                <th>WYNIK</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            <!-- JS fill -->
+                        </tbody>
+                    </table>
+                    <div class="total-summary">
+                        CAŁKOWITY ZAPAS ENERGII: <span id="total-archive-value">0.00</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel Gościa -->
+            <section id="guest-panel" class="panel">
+                <h2>> ODCZYT BIEŻĄCEGO CYKLU (Bieżący tydzień)</h2>
+                <div class="box">
+                    <table id="guest-table">
+                        <thead>
+                            <tr>
+                                <th>CYKL GŁÓWNY</th>
+                                <th>SEKTOR</th>
+                                <th>CZAS TRWANIA (H)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guest-table-body">
+                            <!-- JS fill -->
+                        </tbody>
+                    </table>
+                    <div class="total-summary" id="guest-summary" style="display:none;">
+                        CZAS TRWANIA CYKLU BIEŻĄCEGO: <span id="guest-total-hours">0.00</span> H
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Logowania -->
+    <div id="login-modal" class="modal" style="display: none;">
+        <div class="modal-content box">
+            <h3>>> AUTORYZACJA UPLINKU</h3>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="password">KLUCZ DOSTĘPU:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit">[AUTORYZUJ]</button>
+                    <button type="button" id="btn-close-modal">[PRZERWIJ]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
